@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Le Petit Paris - Restaurante Gourmet</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Montserrat&display=swap" rel="stylesheet" />
+  <style>
+    /* Reset básicoy tipografía */
+    *, *::before, *::after { box-sizing: border-box; }
+    body, h1, h2, h3, p, ul, li, nav, section, header, footer, form, input, textarea, button {
+      margin: 0; padding: 0; border: 0; font-weight: normal; font-size: 100%;
+      font-family: 'Montserrat', sans-serif; color: #dcdcdc;
+    }
+    body {
+      background-color: #2c2f33;
+      line-height: 1.65; font-size: 16px; letter-spacing: 0.02em;
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden; min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    /* Titulares elegantes */
+    h1, h2, h3 {
+      font-family: 'Playfair Display', serif;
+      color: #e0c68b; letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    h1 { font-size: 3.5rem; margin-bottom: 0.3em; }
+    h2 {
+      font-size: 2rem; margin-bottom: 0.7em; border-bottom: 2px solid #e0c68b;
+      padding-bottom: 0.3em; max-width: max-content;
+    }
+    h3 {
+      font-size: 1.25rem; margin-bottom: 0.4em;
+      color: #c1b883; font-weight: 600;
+    }
+    p { margin-bottom: 1.1em; color: #b0aea8; max-width: 720px; }
+    ul { list-style: none; padding-left: 0; margin-bottom: 1.5em; }
+    li {
+      margin-bottom: 0.5em; padding-left: 1.5em; position: relative; color: #b0aea8;
+    }
+    li::before {
+      content: '•'; position: absolute; left: 0; color: #e0c68b;
+      font-size: 1.2em; line-height: 0; top: 0.2em;
+    }
+    /* Header y navegación */
+    header {
+      background-color: #23272a; text-align: center;
+      padding: 60px 20px 50px; box-shadow: 0 2px 8px rgba(0,0,0,0.7);
+      position: sticky; top: 0; z-index: 1000;
+    }
+    nav {
+      background-color: #1e2124; position: sticky; top: 120px; z-index: 900;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.7);
+    }
+    .nav-container {
+      display: flex; justify-content: center; gap: 2.5rem;
+      padding: 18px 10px; font-weight: 600;
+      font-family: 'Playfair Display', serif;
+      text-transform: uppercase; letter-spacing: 0.15em; font-size: 0.9rem;
+    }
+    nav a {
+      text-decoration: none; color: #9f9a8c; transition: color 0.3s ease;
+      padding: 5px; position: relative;
+    }
+    nav a:hover, nav a:focus { color: #e0c68b; }
+    /* Dropdown menú */
+    .dropdown { position: relative; }
+    .dropdown-content {
+      display: none; position: absolute;
+      top: 100%; left: 0;
+      background-color: #1e2124; min-width: 160px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.7);
+      border-radius: 6px; overflow: hidden;
+    }
+    .dropdown-content a {
+      display: block; padding: 10px 15px; color: #9f9a8c;
+    }
+    .dropdown-content a:hover { background-color: #23272a; color: #e0c68b; }
+    .dropdown:hover .dropdown-content,
+    .dropdown:focus-within .dropdown-content {
+      display: block;
+    }
+    /* Contenidos principales */
+    main {
+      flex-grow: 1; max-width: 960px; margin: 3rem auto 5rem; padding: 0 20px;
+    }
+    section { margin-bottom: 80px; }
+    /* Slider */
+    .slider {
+      position: relative; overflow: hidden; border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(224, 198, 139, 0.3);
+      max-height: 420px; margin-bottom: 3rem;
+    }
+    .slides {
+      display: flex; width: 300%; animation: slide 18s infinite;
+    }
+    .slides img {
+      width: 100%; height: 420px; object-fit: cover;
+      filter: brightness(0.7); transition: filter 0.5s ease;
+    }
+    .slides img:hover {
+      filter: brightness(1); cursor: pointer;
+    }
+    @keyframes slide {
+      0% { transform: translateX(0); }
+      33% { transform: translateX(-100%); }
+      66% { transform: translateX(-200%); }
+      100% { transform: translateX(0); }
+    }
+    /* Menú destacado */
+    .menu-list {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+    .menu-item {
+      background-color: #1e2124; padding: 25px 30px; border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(224, 198, 139, 0.2);
+      transition: box-shadow 0.3s ease;
+    }
+    .menu-item:hover {
+      box-shadow: 0 10px 30px rgba(224, 198, 139, 0.4);
+    }
+    .menu-item h3 {
+      color: #e0c68b; margin-bottom: 0.3em; font-weight: 700;
+    }
+    .menu-item p {
+      font-style: italic; color: #9f9a8c; font-size: 0.95rem;
+    }
+    .menu-item span {
+      display: block; margin-top: 15px; font-weight: 700;
+      color: #b0aea8; font-size: 1.05rem;
+    }
+    /* Sección historia */
+    .historia {
+      background-color: #23272a; padding: 30px; border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    }
+    .historia p { color: #b0aea8; }
+    /* Galería */
+    .galeria {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 15px;
+    }
+    .galeria img {
+      width: 100%; border-radius: 10px;
+      object-fit: cover; filter: brightness(0.85);
+      transition: filter 0.3s ease, transform 0.3s ease;
+    }
+    .galeria img:hover {
+      filter: brightness(1); transform: scale(1.03);
+    }
+    /* Testimonios */
+    .testimonios {
+      display: flex; flex-direction: column; gap: 20px;
+    }
+    .testimonio {
+      background-color: #1e2124; padding: 20px; border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(224,198,139,0.2); font-style: italic;
+      color: #b0aea8;
+    }
+    .testimonio strong { color: #e0c68b; }
+    /* Newsletter */
+    .newsletter {
+      background-color: #23272a; padding: 30px; border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5); text-align: center;
+    }
+    .newsletter input {
+      width: 100%; max-width: 360px; padding: 12px;
+      border-radius: 8px; border: 1px solid #504f49; margin-right: 8px;
+      font-family: inherit; font-size: 1rem; color: #dcdcdc;
+      background-color: #2c2f33; transition: border-color 0.3s ease;
+    }
+    .newsletter input:focus {
+      border-color: #e0c68b; outline: none; background-color: #3a3d42;
+    }
+    .newsletter button {
+      background-color: #e0c68b; color: #2c2a28; font-weight: bold;
+      padding: 12px 20px; border: none; border-radius: 8px;
+      cursor: pointer; transition: background-color 0.3s ease;
+    }
+    .newsletter button:hover, .newsletter button:focus {
+      background-color: #b89f4e; outline: none;
+    }
+    /* Reservaciones y contacto (igual que antes) */
+    form {
+      max-width: 480px; margin: auto; background-color: #1e2124;
+      padding: 30px 35px; border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(224, 198, 139, 0.2);
+    }
+    form label {
+      display: block; margin-bottom: 6px; font-weight: 600;
+      color: #b0aea8; font-size: 0.9rem;
+      letter-spacing: 0.03em; text-transform: uppercase;
+    }
+    form input, form select, form textarea {
+      width: 100%; padding: 12px 14px; margin-bottom: 20px;
+      border: 1px solid #504f49; border-radius: 8px;
+      font-family: inherit; font-size: 1rem; color: #dcdcdc;
+      background-color: #2c2f33; transition: border-color 0.3s ease;
+    }
+    form input:focus, form select:focus, form textarea:focus {
+      border-color: #e0c68b; outline: none; background-color: #3a3d42;
+    }
+    form button {
+      background-color: #e0c68b; color: #2c2a28;
+      padding: 14px 22px; font-size: 1.1rem; font-weight: 700;
+      border-radius: 12px; border: none; cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: 100%;
+    }
+    form button:hover, form button:focus {
+      background-color: #b89f4e; outline: none;
+    }
+    /* Botón formulario adicional */
+    .btn-formulario {
+      margin-top: 25px;
+      background-color: #e0c68b;
+      color: #2c2a28;
+      font-weight: 700;
+      padding: 12px 24px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      letter-spacing: 0.1em;
+      transition: background-color 0.3s ease;
+      text-transform: uppercase;
+      display: inline-block;
+    }
+    .btn-formulario:hover, .btn-formulario:focus {
+      background-color: #b89f4e;
+      outline: none;
+    }
+    /* Nuestro chef (añadido para la sección) */
+    .chef {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      margin-top: 20px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .chef img {
+      border-radius: 12px;
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      box-shadow: 0 4px 12px rgba(224,198,139,0.3);
+    }
+    /* Pie de página */
+    footer {
+      background-color: #23272a; padding: 30px 20px;
+      text-align: center; font-size: 0.9rem; color: #807d7a;
+      box-shadow: inset 0 1px 8px rgba(0,0,0,0.6);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Le Petit Paris</h1>
+    <button class="btn-formulario" onclick="location.href='formulario2.html'">Reservar Ahora</button>
+  </header>
+  <nav role="navigation" aria-label="Menú principal">
+    <div class="nav-container">
+      <a href="#inicio">Inicio</a>
+      <a href="#menu">Menú</a>
+      <a href="#historia">Historia</a>
+      <a href="#galeria">Galería</a>
+      <div class="dropdown" tabindex="0">
+        <a href="#servicios" aria-haspopup="true" aria-expanded="false">Servicios</a>
+        <div class="dropdown-content" role="menu" aria-label="Submenú servicios">
+          <a href="#eventos" role="menuitem">Eventos</a>
+          <a href="#catering" role="menuitem">Catering</a>
+          <a href="#delivery" role="menuitem">Delivery</a>
+        </div>
+      </div>
+      <a href="#contacto">Contacto</a>
+    </div>
+  </nav>
+  <main>
+    <section id="inicio" aria-label="Imagen principal del restaurante">
+      <div class="slider" role="region" aria-live="polite" aria-atomic="true" aria-label="Galería de imágenes del restaurante">
+        <div class="slides">
+          <img src="https://cdn.pixabay.com/photo/2016/04/23/22/00/tree-1342072_960_720.jpg" alt="Mesa con comida gourmet francesa en restaurante" loading="lazy" />
+          <img src="https://cdn.pixabay.com/photo/2017/02/16/19/32/restaurant-2073961_960_720.jpg" alt="Interior elegante del restaurante Le Petit Paris" loading="lazy" />
+          <img src="https://cdn.pixabay.com/photo/2015/09/18/20/15/food-949437_960_720.jpg" alt="Platillo gourmet servido en plato blanco" loading="lazy" />
+        </div>
+      </div>
+    </section>
+    <section id="menu" aria-labelledby="menu-title">
+      <h2 id="menu-title">Menú Destacado</h2>
+      <ul class="menu-list">
+        <li class="menu-item">
+          <h3>Soufflé de Queso</h3>
+          <p>Delicado soufflé con quesos franceses.</p>
+          <span>$150 MXN</span>
+        </li>
+        <li class="menu-item">
+          <h3>Ratatouille Clásico</h3>
+          <p>Verduras frescas guisadas al estilo provenzal.</p>
+          <span>$120 MXN</span>
+        </li>
+        <li class="menu-item">
+          <h3>Confit de Pato</h3>
+          <p>Pato confitado con hierbas y especias.</p>
+          <span>$280 MXN</span>
+        </li>
+      </ul>
+    </section>
+    <section id="historia" class="historia" aria-labelledby="historia-title">
+      <h2 id="historia-title">Nuestra Historia</h2>
+      <p>Le Petit Paris es un restaurante gourmet que ofrece la mejor gastronomía francesa en Ciudad de México. Fundado en 2010, hemos sido reconocidos por nuestra calidad y ambiente elegante.</p>
+      <p>Nuestro chef estrella, Jean-Pierre Martin, lleva más de 20 años creando experiencias culinarias inolvidables.</p>
+      <div class="chef" aria-label="Foto y descripción del chef Jean-Pierre Martin">
+        <img src="https://cdn.pixabay.com/photo/2017/08/10/07/18/chef-2612874_960_720.jpg" alt="Chef Jean-Pierre Martin" loading="lazy" />
+        <div>
+          <h3>Jean-Pierre Martin</h3>
+          <p>Chef Ejecutivo y fundador de Le Petit Paris. Experto en cocina francesa clásica y moderna.</p>
+        </div>
+      </div>
+    </section>
+    <section id="galeria" aria-label="Galería de imágenes">
+      <h2>Galería</h2>
+      <div class="galeria">
+        <img src="https://cdn.pixabay.com/photo/2016/03/05/19/02/food-1238241_960_720.jpg" alt="Platillo gourmet con hierbas" loading="lazy" />
+        <img src="https://cdn.pixabay.com/photo/2015/04/20/13/25/food-731475_960_720.jpg" alt="Entrada elegante en el restaurante" loading="lazy" />
+        <img src="https://cdn.pixabay.com/photo/2017/07/16/10/43/dish-2507693_960_720.jpg" alt="Postre gourmet servido en copa" loading="lazy" />
+        <img src="https://cdn.pixabay.com/photo/2016/11/29/02/33/food-1869645_960_720.jpg" alt="Chef preparando platillo" loading="lazy" />
+      </div>
+    </section>
+    <section id="contacto" aria-labelledby="contacto-title">
+      <h2 id="contacto-title">Contáctanos y Reservaciones</h2>
+      <form action="https://formspree.io/f/xyznabc" method="POST" aria-label="Formulario de reservación">
+        <label for="nombre">Nombre completo</label>
+        <input type="text" id="nombre" name="nombre" required autocomplete="name" />
+        <label for="email">Correo electrónico</label>
+        <input type="email" id="email" name="email" required autocomplete="email" />
+        <label for="telefono">Teléfono</label>
+        <input type="tel" id="telefono" name="telefono" pattern="[0-9]{10}" placeholder="10 dígitos" required autocomplete="tel" />
+        <label for="fecha">Fecha de reserva</label>
+        <input type="date" id="fecha" name="fecha" required />
+        <label for="hora">Hora</label>
+        <input type="time" id="hora" name="hora" required />
+        <label for="personas">Número de personas</label>
+        <select id="personas" name="personas" required>
+          <option value="" disabled selected>Seleccione</option>
+          <option value="1">1 persona</option>
+          <option value="2">2 personas</option>
+          <option value="3">3 personas</option>
+          <option value="4">4 personas</option>
+          <option value="5">5 personas</option>
+          <option value="6">6 o más</option>
+        </select>
+        <button type="submit">Enviar Reserva</button>
+      </form>
+    </section>
+  </main>
+  <footer>
+    <p>© 2025 Le Petit Paris. Todos los derechos reservados.</p>
+  </footer>
+</body>
+</html>
